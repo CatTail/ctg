@@ -1,0 +1,77 @@
+[
+    {
+        "command": "open",
+        "value": "http://meituan.com"
+    },
+    {
+        "command": "useragent",
+        "value": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.106 Safari/537.36"
+    },
+    {
+        "command": "viewport",
+        "value": {
+            "width": 500,
+           "height": 500 
+        }
+    },
+    {
+        "command": "back"
+    },
+    {
+        "command": "forward"
+    },
+    {
+        "command": "refresh"
+    },
+    {
+        "command": "click",
+        "target": "#selector"
+    },
+    {
+        "command": "mousedown",
+        "target": "#selector"
+    },
+    {
+        "command": "type",
+        "target": "#selector",
+        "value": "hello world"
+    },
+    {
+        "command": "check",
+        "target": "#selector"
+    },
+    {
+        "command": "select",
+        "target": "#selector",
+        "value": "someOption"
+    },
+    {
+        "command": "scrollTo",
+        "value": {
+            "top": 200,
+            "left": 200
+        }
+    },
+    {
+        "command": "inject",
+        "value": {
+            "type": "js",
+            "file": "/path/to/file.js"
+        }
+    },
+    {
+        "command": "inject",
+        "value": {
+            "type": "css",
+            "file": "/path/to/file.css"
+        }
+    },
+    {
+        "command": "wait",
+        "value": 1000
+    },
+    {
+        "command": "waitForSelector",
+        "target": "#selector"
+    }
+]

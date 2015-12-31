@@ -1,0 +1,29 @@
+{
+  "name": "ctg",
+  "version": "1.0.0",
+  "description": "Common Test Generator",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "ssh://git@git.sankuai.com/~zhongchiyu/ctg.git"
+  },
+  "keywords": [
+    "test",
+    "generator"
+  ],
+  "author": "zhongchiyu@meituan.com",
+  "license": "MIT",
+  "dependencies": {
+    "debug": "^2.2.0",
+    "handlebars": "^4.0.5"
+  },
+  "devDependencies": {
+    "fixreader": "^1.2.0",
+    "mocha": "^2.3.4",
+    "should": "^8.0.2",
+    "typescript": "^1.7.5"
+  }
+}

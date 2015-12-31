@@ -1,0 +1,100 @@
+var casper = require("casper").create({
+    verbose: true,
+    logLevel: "debug"
+})
+var fs = require('fs')
+
+casper.start()
+
+{{#each actions}}
+    {{#equal command "open"}}
+        {{#if @first}}
+casper.open("{{value}}")
+        {{else}}
+casper.thenOpen("{{value}}")
+        {{/if}}
+    {{/equal}}
+    {{#equal command "useragent"}}
+casper.then(function() {
+    this.userAgent("{{value}}")
+})
+    {{/equal}}
+    {{#equal command "viewport"}}
+casper.then(function() {
+    this.viewport({{value.width}}, {{value.height}})
+})
+    {{/equal}}
+    {{#equal command "back"}}
+casper.then(function() {
+    this.back()
+})
+    {{/equal}}
+    {{#equal command "forward"}}
+casper.then(function() {
+    this.forward()
+})
+    {{/equal}}
+    {{#equal command "refresh"}}
+casper.then(function() {
+    this.reload()
+})
+    {{/equal}}
+    {{#equal command "click"}}
+casper.then(function() {
+    this.mouse.click("{{target}}")
+})
+    {{/equal}}
+    {{#equal command "mousedown"}}
+casper.then(function() {
+    this.mouse.down("{{target}}")
+})
+    {{/equal}}
+    {{#equal command "type"}}
+casper.then(function() {
+    this.sendKeys("{{target}}", "{{value}}", {reset: true})
+})
+    {{/equal}}
+    {{#equal command "check"}}
+casper.then(function() {
+    // var checked = this.getElementAttribute("{{target}}", "checked")
+    this.mouse.click("{{target}}")
+})
+// casper.wait(100)
+    {{/equal}}
+    {{#equal command "select"}}
+// https://github.com/segmentio/nightmare/blob/32dfd18f5aa042a433f25eb15dfbc260ff5c49e3/lib/actions.js#L183
+casper.thenEvaluate(function(selector, option) {
+    var element = document.querySelector(selector)
+    var event = document.createEvent("HTMLEvents")
+    element.value = option
+    event.initEvent("change", true, true)
+    element.dispatchEvent(event)
+}, "{{target}}", "{{value}}") // TODO: option maybe int?
+    {{/equal}}
+    {{#equal command "scrollTo"}}
+casper.then(function() {
+    this.scrollTo({{value.left}}, {{value.top}})
+})
+    {{/equal}}
+    {{#equal command "inject"}}
+        {{#equal value.type "js"}}
+casper.then(function() {
+    this.page.injectJs("{{value.file}}")
+})
+        {{else}}
+casper.evaluate(function(content) {
+    var style = document.createElement('style')
+    style.innerHTML = content
+    document.body.appendChild(style)
+}, fs.read("{{value.file}}"))
+        {{/equal}}
+    {{/equal}}
+    {{#equal command "wait"}}
+casper.wait({{value}})
+    {{/equal}}
+    {{#equal command "waitForSelector"}}
+casper.waitForSelector("{{target}}")
+    {{/equal}}
+
+{{/each}}
+casper.run()
